@@ -3,6 +3,24 @@ const NORTH = 1;
 const WEST = 2;
 const SOUTH = 3;
 
+class Game{
+  constructor(snake,ghostSnake,food){
+    this.snake = snake;
+    this.ghostSnake = ghostSnake;
+    this.food = food;
+  }
+  get assets() {
+    const snake = this.snake;
+    const ghostSnake = this.ghostSnake;
+    const food = this.food;
+    return {snake,ghostSnake,food}
+  }
+  updateFood(position){
+    const [colId, rowId] = position;
+    this.food = new Food(colId, rowId);
+  }
+}
+
 class Direction {
   constructor(initialHeading) {
     this.heading = initialHeading;
@@ -95,8 +113,8 @@ const eraseTail = function(snake) {
   cell.classList.remove(snake.species);
 };
 
-drawFood = function(positions){
-  const cell = getCell(...positions);
+const drawFood = function(food){
+  const cell = getCell(...food.positions);
   cell.classList.add('food');
 }
 
@@ -132,7 +150,6 @@ const createGhostSnake = function(){
 }
 
 const paint = function(assets) {
-  createGrids();
   drawSnake(assets.snake);
   drawFood(assets.food);
   drawSnake(assets.ghostSnake);
@@ -149,28 +166,31 @@ const randomlyMoveSnake = function(snake){
   }
 }
 
-class Game{
-  constructor(snake,ghostSnake,food){
-    this.snake = snake;
-    this.ghostSnake = ghostSnake;
-    this.food = food;
-  }
-  get assets() {
-    const snake = this.snake;
-    const ghostSnake = this.ghostSnake;
-    const food = this.food;
-    return {snake,ghostSnake,food}
-  }
-
+const generatePosition = function(){
+  const colId = Math.random()*(NUM_OF_COLS);
+  const rowId = Math.random()*(NUM_OF_ROWS);
+  return [Math.floor(colId) ,Math.floor(rowId)];
 }
 
+const repaintGame = function(game){
+  const position = generatePosition();
+  game.updateFood(position);
+  eraseFood();
+  paint(game.assets);
+}
+const eraseFood = function(){
+  const cell = document.getElementsByClassName('food')[0];
+  cell.classList.remove('food');
+}
 const main = function() {
   const snake = createSnake();
   const ghostSnake = createGhostSnake();
-  const food = new Food(20,20).positions; 
+  const food = new Food(20,20); 
+  createGrids();
   attachEventListeners(snake);
   const game = new Game(snake,ghostSnake,food);
   paint(game.assets);
   setInterval(animateSnakes, 200, snake, ghostSnake);
   setInterval(randomlyMoveSnake, 500, ghostSnake);
+  setInterval(repaintGame,10*1000, game);
 };

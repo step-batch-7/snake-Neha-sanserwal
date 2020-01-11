@@ -15,9 +15,9 @@
 
 --DONE-- * Change color of ghost snake
 
---Done-- create food
---Done-- Extract class food
-* Extract a class Game and add initial setup to the class.
+--Done-- * Create food
+--Done-- * Extract class food
+--Done-- * Extract a class Game and initial setup to the class.
 * Generate food periodically
 * Allow snake to eat food when food becomes available
 * Upon eating the food, snake should grow tall

@@ -21,7 +21,15 @@ class Direction {
     this.heading = (this.heading + 1) % 4;
   }
 }
-
+class Food{
+  constructor(colId,rowId){
+    this.colId = colId;
+    this.rowId = rowId;
+  }
+  get positions(){
+    return [this.colId,this.rowId];
+  }
+}
 class Snake {
   constructor(positions, direction, type) {
     this.positions = positions.slice();
@@ -85,6 +93,11 @@ const eraseTail = function(snake) {
   cell.classList.remove(snake.species);
 };
 
+drawFood = function(positions){
+  const cell = getCell(...positions);
+  cell.classList.add('food');
+}
+
 const drawSnake = function(snake) {
   snake.location.forEach(([colId, rowId]) => {
     const cell = getCell(colId, rowId);
@@ -126,10 +139,12 @@ const main = function() {
     new Direction(SOUTH),
     'ghost'
   );
+  const food = new Food(20,20); 
 
   attachEventListeners(snake);
   createGrids();
   drawSnake(snake);
+  drawFood(food.positions);
   drawSnake(ghostSnake);
 
   setInterval(() => {

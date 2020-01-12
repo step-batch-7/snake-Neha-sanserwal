@@ -3,6 +3,11 @@ const NORTH = 1;
 const WEST = 2;
 const SOUTH = 3;
 
+const areCoordEqual = function(pointA, location){
+  return location.some((pointB)=>{
+    return pointA[0]=== pointB[0] && pointA[1]=== pointB[1]
+  });
+}
 class Game{
   constructor(snake,ghostSnake,food){
     this.snake = snake;
@@ -18,6 +23,9 @@ class Game{
   updateFood(position){
     const [colId, rowId] = position;
     this.food = new Food(colId, rowId);
+  }
+  isFoodEaten(){
+    return areCoordEqual(this.food.positions,this.snake.location);
   }
 }
 
@@ -154,9 +162,9 @@ const paint = function(assets) {
   drawFood(assets.food);
   drawSnake(assets.ghostSnake);
 }
-const animateSnakes = function(snake,ghostSnake){
-  moveAndDrawSnake(snake);
-  moveAndDrawSnake(ghostSnake);
+const animateSnakes = function(assets){
+  moveAndDrawSnake(assets.snake);
+  moveAndDrawSnake(assets.ghostSnake);
 }
 
 const randomlyMoveSnake = function(snake){
@@ -173,24 +181,27 @@ const generatePosition = function(){
 }
 
 const repaintGame = function(game){
-  const position = generatePosition();
-  game.updateFood(position);
-  eraseFood();
+  if(game.isFoodEaten()){
+    eraseFood();
+    const position = generatePosition();
+    game.updateFood(position);
+  }
   paint(game.assets);
 }
 const eraseFood = function(){
   const cell = document.getElementsByClassName('food')[0];
   cell.classList.remove('food');
 }
+
 const main = function() {
   const snake = createSnake();
   const ghostSnake = createGhostSnake();
-  const food = new Food(20,20); 
+  const food = new Food(20,25); 
   createGrids();
   attachEventListeners(snake);
   const game = new Game(snake,ghostSnake,food);
   paint(game.assets);
-  setInterval(animateSnakes, 200, snake, ghostSnake);
-  setInterval(randomlyMoveSnake, 500, ghostSnake);
-  setInterval(repaintGame,10*1000, game);
+  setInterval(animateSnakes, 200, game.assets);
+  setInterval(randomlyMoveSnake, 500, game.assets.ghostSnake);
+  setInterval(repaintGame,200, game);
 };

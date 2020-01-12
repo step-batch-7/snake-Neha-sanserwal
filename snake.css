@@ -17,6 +17,7 @@ h1 {
 
 .snake {
   background-color: black;
+  border-radius: 5px;
 }
 
 .ghost {
@@ -24,4 +25,5 @@ h1 {
 }
 .food {
   background: red;
+  border-radius: 10px ;
 }

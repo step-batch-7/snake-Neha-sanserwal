@@ -27,6 +27,9 @@ class Game{
   isFoodEaten(){
     return areCoordEqual(this.food.positions,this.snake.location);
   }
+  growSnakeBy(size){
+    this.snake.growBy(size);
+  }
 }
 
 class Direction {
@@ -85,6 +88,10 @@ class Snake {
     const [deltaX, deltaY] = this.direction.delta;
 
     this.positions.push([headX + deltaX, headY + deltaY]);
+  }
+  growBy(size){
+    const previousTail = this.positions[this.positions.length - 1];
+    this.positions.push([previousTail[0]+size, previousTail[1]])
   }
 }
 
@@ -183,8 +190,10 @@ const generatePosition = function(){
 const repaintGame = function(game){
   if(game.isFoodEaten()){
     eraseFood();
+    game.growSnakeBy(1);
     const position = generatePosition();
     game.updateFood(position);
+
   }
   paint(game.assets);
 }

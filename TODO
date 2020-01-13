@@ -20,6 +20,6 @@
 --Done-- * Extract a class Game and initial setup to the class.
 --Done-- * Generate food periodically
 --Done-- * Allow snake to eat food when food becomes available
-* Upon eating the food, snake should grow tall
+--Done-- * Upon eating the food, snake should grow tall
 * If snake touches itself or the walls, the game should be over
 * Add a scoring mechanism

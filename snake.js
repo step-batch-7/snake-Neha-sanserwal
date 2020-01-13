@@ -23,13 +23,17 @@ class Snake {
     const [deltaX, deltaY] = this.direction.delta;
     this.positions.push([headX + deltaX, headY + deltaY]);
   }
-
+  isHeadAt(food){
+    const [foodX, foodY] = food;
+    const [[headX,headY]] = this.positions;
+    return headX === foodX && headY === foodY;
+  }
   move() {
     this.previousTail = this.positions.shift();
-    this.grow()
+    this.grow();
   }
   isHeadOnWall(){
-    const [[headX,headY]] = this.positions;
+    const [headX,headY] = this.positions[this.positions.length - 1];
     return H_WALLS.includes(headX) || V_WALLS.includes(headY);
   }
  

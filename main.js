@@ -1,8 +1,8 @@
 
 const NUM_OF_COLS = 100;
 const NUM_OF_ROWS = 60;
-const H_WALLS = [100,0];
-const V_WALLS = [100,0]
+const H_WALLS = [100,-1];
+const V_WALLS = [60,-1]
 const GRID_ID = 'grid';
 
 const getGrid = () => document.getElementById(GRID_ID);
@@ -76,13 +76,13 @@ const paint = function(assets) {
 }
 const animateSnakes = function(assets){
   moveAndDrawSnake(assets.snake);
-   moveAndDrawSnake(assets.ghostSnake);
+  moveAndDrawSnake(assets.ghostSnake);
 }
 
-const randomlyMoveSnake = function(snake){
+const randomlyMoveSnake = function(game){
   let x = Math.random() * 100;
   if (x > 50) {
-    snake.turnLeft();
+   game.turnGhostSnake();
   }
 }
 
@@ -99,7 +99,7 @@ const repaintGame = function(game){
     const position = generatePosition();
     game.updateFood(position);
   }
-    paint(game.assets);
+  paint(game.assets);
 }
 const eraseFood = function(){
   const cell = document.getElementsByClassName('food')[0];
@@ -113,21 +113,16 @@ const main = function() {
   const food = new Food(foodX,foodY); 
   createGrids();
   attachEventListeners(snake);
-
   const game = new Game(snake,ghostSnake,food);
   paint(game.assets);
-
-  const painting = setInterval(repaintGame,200, game);
-  const moving = setInterval(randomlyMoveSnake, 2*1000, game.assets.ghostSnake);
-  const animation = setInterval(animateSnakes,200,game.assets);
-
   const gameOver = setInterval(()=>{
     if(game.isWallTouched()){
-      clearInterval(moving);
-      clearInterval(animation);
       clearInterval(painting);
+      clearInterval(moving);
       clearInterval(gameOver);
     }
-  },200);
-  
+    repaintGame(game);
+  },5);
+  const painting = setInterval(animateSnakes,200, game.assets);
+  const moving = setInterval(randomlyMoveSnake, 2*1000, game);  
 };

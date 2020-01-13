@@ -1,15 +1,10 @@
-const areCoordEqual = function(pointA, location){
-  return location.some((pointB)=>{
-    return pointA[0]=== pointB[0] && pointA[1]=== pointB[1]
-  });
-}
-
-class Game{
+ class Game{
   constructor(snake,ghostSnake,food){
     this.snake = snake;
     this.ghostSnake = ghostSnake;
     this.food = food;
   }
+
   get assets() {
     const snake = this.snake;
     const ghostSnake = this.ghostSnake;
@@ -20,13 +15,17 @@ class Game{
     const [colId, rowId] = position;
     this.food = new Food(colId, rowId);
   }
+
   isFoodEaten(){
-    return areCoordEqual(this.food.positions,this.snake.location);
+   return this.snake.isHeadAt(this.food.positions);
   }
   growSnake(){
     this.snake.grow();
   }
   isWallTouched(){
     return this.snake.isHeadOnWall();
+  }
+  turnGhostSnake(){
+    this.ghostSnake.turnLeft();
   }
 }

@@ -8,8 +8,7 @@ const GRID_ID = 'grid';
 const getGrid = () => document.getElementById(GRID_ID);
 const getCellId = (colId, rowId) => colId + '_' + rowId;
 
-const getCell = (colId, rowId) =>
-  document.getElementById(getCellId(colId, rowId));
+const getCell = (colId, rowId) => document.getElementById(getCellId(colId, rowId));
 
 const createCell = function(grid, colId, rowId) {
   const cell = document.createElement('div');
@@ -74,6 +73,7 @@ const paint = function(assets) {
   drawFood(assets.food);
   drawSnake(assets.ghostSnake);
 }
+
 const animateSnakes = function(assets){
   moveAndDrawSnake(assets.snake);
   moveAndDrawSnake(assets.ghostSnake);
@@ -101,6 +101,7 @@ const repaintGame = function(game){
   }
   paint(game.assets);
 }
+
 const eraseFood = function(){
   const cell = document.getElementsByClassName('food')[0];
   cell.classList.remove('food');
@@ -115,14 +116,14 @@ const main = function() {
   attachEventListeners(snake);
   const game = new Game(snake,ghostSnake,food);
   paint(game.assets);
+
   const gameOver = setInterval(()=>{
-    if(game.isWallTouched()){
-      clearInterval(painting);
+    if(game.isWallTouched()|| game.isSnakeTouched()){
       clearInterval(moving);
       clearInterval(gameOver);
     }
     repaintGame(game);
-  },5);
-  const painting = setInterval(animateSnakes,200, game.assets);
-  const moving = setInterval(randomlyMoveSnake, 2*1000, game);  
+    animateSnakes(game.assets);
+  },200);
+  const moving = setInterval(randomlyMoveSnake, 200, game);  
 };

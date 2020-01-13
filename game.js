@@ -25,6 +25,9 @@
   isWallTouched(){
     return this.snake.isHeadOnWall();
   }
+  isSnakeTouched(){
+    return this.snake.hasTouchedBody();
+  }
   turnGhostSnake(){
     this.ghostSnake.turnLeft();
   }

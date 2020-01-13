@@ -43,7 +43,6 @@ class Snake {
   hasTouchedBody(){
     const [headX,headY] = this.positions[this.positions.length - 1];
     const body = this.positions.slice(0,-1);
-    console.log(body)
     return body.some(([partX,partY]) => {
       return partX === headX && partY === headY;
     }) 

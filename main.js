@@ -82,7 +82,7 @@ const animateSnakes = function(assets){
 const randomlyMoveSnake = function(game){
   let x = Math.random() * 100;
   if (x > 50) {
-   game.turnGhostSnake();
+    game.turnGhostSnake();
   }
 }
 

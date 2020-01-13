@@ -22,9 +22,12 @@
   growSnake(){
     this.snake.grow();
   }
+  
   isWallTouched(){
-    return this.snake.isHeadOnWall();
+    const[headX,headY] = this.snake.head;
+    return H_WALLS.includes(headX)|| V_WALLS.includes(headY);
   }
+
   isSnakeTouched(){
     return this.snake.hasTouchedBody();
   }

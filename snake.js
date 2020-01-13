@@ -8,6 +8,7 @@ const areCoordEqual = function(pointA, location){
     return pointA[0]=== pointB[0] && pointA[1]=== pointB[1]
   });
 }
+
 class Game{
   constructor(snake,ghostSnake,food){
     this.snake = snake;
@@ -29,6 +30,9 @@ class Game{
   }
   growSnake(){
     this.snake.grow();
+  }
+  isWallTouched(){
+    return this.snake.isHeadOnWall();
   }
 }
 
@@ -61,6 +65,7 @@ class Food{
   }
 }
 
+
 class Snake {
   constructor(positions, direction, type) {
     this.positions = positions.slice();
@@ -91,12 +96,17 @@ class Snake {
     this.previousTail = this.positions.shift();
     this.grow()
   }
+  isHeadOnWall(){
+    const [[headX,headY]] = this.positions;
+    return H_WALLS.includes(headX) || V_WALLS.includes(headY);
+  }
  
 }
 
 const NUM_OF_COLS = 100;
 const NUM_OF_ROWS = 60;
-
+const H_WALLS = [97,2];
+const V_WALLS = [57,2]
 const GRID_ID = 'grid';
 
 const getGrid = () => document.getElementById(GRID_ID);
@@ -170,7 +180,7 @@ const paint = function(assets) {
 }
 const animateSnakes = function(assets){
   moveAndDrawSnake(assets.snake);
-  moveAndDrawSnake(assets.ghostSnake);
+   moveAndDrawSnake(assets.ghostSnake);
 }
 
 const randomlyMoveSnake = function(snake){
@@ -193,7 +203,7 @@ const repaintGame = function(game){
     const position = generatePosition();
     game.updateFood(position);
   }
-  paint(game.assets);
+    paint(game.assets);
 }
 const eraseFood = function(){
   const cell = document.getElementsByClassName('food')[0];
@@ -203,12 +213,23 @@ const eraseFood = function(){
 const main = function() {
   const snake = createSnake();
   const ghostSnake = createGhostSnake();
-  const food = new Food(20,25); 
+  const [foodX,foodY] = generatePosition()
+  const food = new Food(foodX,foodY); 
   createGrids();
   attachEventListeners(snake);
+
   const game = new Game(snake,ghostSnake,food);
   paint(game.assets);
-  setInterval(animateSnakes, 200, game.assets);
-  setInterval(randomlyMoveSnake, 500, game.assets.ghostSnake);
-  setInterval(repaintGame,200, game);
+
+  const snakeDead = setInterval(()=>{
+    if(game.isWallTouched()){
+    clearInterval(painting);
+    clearInterval(moving);
+    clearInterval(snakeDead);
+    clearInterval(animation);}
+  },200);
+  
+  const painting = setInterval(repaintGame,200, game);
+  const moving = setInterval(randomlyMoveSnake, 2*1000, game.assets.ghostSnake);
+  const animation = setInterval(animateSnakes,200,game.assets);
 };

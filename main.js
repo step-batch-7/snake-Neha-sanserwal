@@ -140,5 +140,5 @@ const main = function() {
     repaintGame(game);
     animateSnakes(game)
   },200);
-  const moving = setInterval(game.turnGhostSnake(), 200);  
+  const moving = setInterval(()=>game.turnGhostSnake(), 200);  
 };

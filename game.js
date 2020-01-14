@@ -44,10 +44,15 @@
   isSnakeTouched(){
     return this.snake.hasTouchedBody();
   }
+  isWallTouchedByGhost(){
+    const[headX,headY] = this.ghostSnake.head;
+    return [99,0].includes(headX)|| [59,0].includes(headY);
+  }
 
   turnGhostSnake(){
     let x = Math.random() * 100;
-    if (x > 90) {
+    console.log( this.isWallTouchedByGhost())
+    if (x > 80|| this.isWallTouchedByGhost()) {
       this.ghostSnake.turnLeft();
     }
     

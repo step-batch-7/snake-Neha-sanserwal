@@ -11,6 +11,7 @@
     const food = this.food;
     return {snake,ghostSnake,food}
   }
+
   updateFood(position){
     const [colId, rowId] = position;
     this.food = new Food(colId, rowId);
@@ -22,7 +23,7 @@
   growSnake(){
     this.snake.grow();
   }
-    
+
   isWallTouched(){
     const[headX,headY] = this.snake.head;
     return H_WALLS.includes(headX)|| V_WALLS.includes(headY);
@@ -31,6 +32,7 @@
   isSnakeTouched(){
     return this.snake.hasTouchedBody();
   }
+
   turnGhostSnake(){
     this.ghostSnake.turnLeft();
   }

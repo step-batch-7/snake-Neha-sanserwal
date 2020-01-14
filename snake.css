@@ -8,6 +8,15 @@ h1 {
   margin: 0px;
   text-align: center;
 }
+
+.scoreBoard{
+  display: flex;
+  width: 60%;
+  margin: 0 auto;
+  flex-flow: row;
+  flex-wrap: wrap;
+}
+
 #gameOver{
   display: none;
   position: absolute;

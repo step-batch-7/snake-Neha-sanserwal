@@ -4,6 +4,7 @@ const NUM_OF_ROWS = 60;
 const H_WALLS = [100,-1];
 const V_WALLS = [60,-1]
 const GRID_ID = 'grid';
+let SCORE = 0;
 
 const getGrid = () => document.getElementById(GRID_ID);
 const getCellId = (colId, rowId) => colId + '_' + rowId;
@@ -25,6 +26,10 @@ const createGrids = function() {
     }
   }
 };
+
+const showScore = function(){
+  document.getElementById('score').innerText = SCORE;
+}
 
 const eraseTail = function(snake) {
   let [colId, rowId] = snake.previousTail;
@@ -94,6 +99,8 @@ const generatePosition = function(){
 
 const repaintGame = function(game){
   if(game.isFoodEaten()){
+    SCORE = SCORE+10;
+    showScore();
     eraseFood();
     game.growSnake();
     const position = generatePosition();
@@ -117,6 +124,7 @@ const main = function() {
   const ghostSnake = createGhostSnake();
   const [foodX,foodY] = generatePosition();
   const food = new Food(foodX,foodY); 
+  showScore();
   createGrids();
   attachEventListeners(snake);
   const game = new Game(snake,ghostSnake,food);

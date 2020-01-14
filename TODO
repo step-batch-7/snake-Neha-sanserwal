@@ -25,4 +25,4 @@
 --Done-- If snake touches itself or the walls, the game should be over.
           -resolved- if food is at boundary game is over.
           -unresolved- console errors "Uncaught TypeError: Cannot read property 'classList' of null"
-* Add a scoring mechanism
+--DONE-- * Add a scoring mechanism

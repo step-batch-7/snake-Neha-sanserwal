@@ -27,3 +27,5 @@
           -resolved- console errors "Uncaught TypeError: Cannot read property 'classList' of null"
           -resolved- ghost snake if touches the wall game stops.
 --DONE-- * Add a scoring mechanism
+
+--Done-- * Bug : Uncaught ReferenceError: moving is not defined

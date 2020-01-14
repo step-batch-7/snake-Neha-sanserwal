@@ -1,14 +1,3 @@
-class Score{
-  constructor(score){
-    this.score = score;
-  }
-  update(){
-    this.score = this.score+10;
-  }
-  get total(){
-    return this.score;
-  }
-}
 const NUM_OF_COLS = 100;
 const NUM_OF_ROWS = 60;
 const H_WALLS = [100,-1];
@@ -117,7 +106,6 @@ const eraseFood = function(){
   cell.classList.remove('food');
 }
 const showGameOver = function(gameOver){
-  clearInterval(moving);
   clearInterval(gameOver);
   document.getElementById('gameOver').style.display = 'flex';
 }

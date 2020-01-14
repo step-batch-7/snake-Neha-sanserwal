@@ -91,12 +91,10 @@ const generatePosition = function(){
 
 const repaintGame = function(game){
   if(game.isFoodEaten()){
-    game.updateScore();
-    showScore(game.totalScore);
+    const newFoodPositions = generatePosition();
+    game.update(newFoodPositions);
     eraseFood();
-    game.growSnake();
-    const position = generatePosition();
-    game.updateFood(position);
+    showScore(game.totalScore);
   }
   paint(game.assets);
 }

@@ -16,19 +16,15 @@
     return this.score.total;
   }
 
-  updateScore(){
+  update(newFoodPosition){
+    const [colId, rowId] = newFoodPosition;
+    this.food = new Food(colId, rowId);
+    this.snake.grow();
     this.score.update(); 
   }
-  updateFood(position){
-    const [colId, rowId] = position;
-    this.food = new Food(colId, rowId);
-  }
-
+  
   isFoodEaten(){
    return this.snake.isHeadAt(this.food.positions);
-  }
-  growSnake(){
-    this.snake.grow();
   }
 
   isWallTouched(){

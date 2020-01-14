@@ -26,7 +26,7 @@ const createGrids = function() {
 };
 
 const showScore = function(score){
-  document.getElementById('count').innerText = score ;
+  document.getElementById('count').innerText = 'SCORE : '+score ;
 }
 
 const eraseTail = function(snake) {
@@ -103,9 +103,14 @@ const eraseFood = function(){
   const cell = document.getElementsByClassName('food')[0];
   cell.classList.remove('food');
 }
-const showGameOver = function(gameOver){
+
+const showGameOver = function(gameOver,score){
   clearInterval(gameOver);
-  document.getElementById('gameOver').style.display = 'flex';
+  const container = document.getElementById('gameOver');
+  const result = document.createElement('div');
+  result.innerText = 'Score: ' + score ;
+  container.appendChild(result)
+  container.style.display = 'flex';
 }
 
 const main = function() {
@@ -122,7 +127,7 @@ const main = function() {
 
   const gameOver = setInterval(()=>{
     if(game.isWallTouched()|| game.isSnakeTouched()){
-      showGameOver(gameOver)
+      showGameOver(gameOver , game.totalScore)
     }
     repaintGame(game);
     animateSnakes(game)

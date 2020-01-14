@@ -11,10 +11,16 @@ h1 {
 
 .scoreBoard{
   display: flex;
-  width: 60%;
+  width: 8%;
   margin: 0 auto;
+  border: 1px solid gray;
   flex-flow: row;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 #gameOver{
@@ -30,6 +36,12 @@ h1 {
   width: 100%;
   background: rgba(0,0,0,0.9);
 }
+
+#gameOver>div{
+  font-size: 2rem;
+  padding: 2.5rem;
+}
+
 #grid {
   width: 800px;
   display: flex;

@@ -89,6 +89,7 @@ const paint = function(assets) {
 
 const animateSnakes = function(game){
   game.moveSnakes();
+  game.turnGhostSnake();
   drawAndEraseSnake(game.assets.snake);
   drawAndEraseSnake(game.assets.ghostSnake);
 }
@@ -115,7 +116,7 @@ const eraseFood = function(){
   const cell = document.getElementsByClassName('food')[0];
   cell.classList.remove('food');
 }
-const showGameOver = function(moving,gameOver){
+const showGameOver = function(gameOver){
   clearInterval(moving);
   clearInterval(gameOver);
   document.getElementById('gameOver').style.display = 'flex';
@@ -135,10 +136,9 @@ const main = function() {
 
   const gameOver = setInterval(()=>{
     if(game.isWallTouched()|| game.isSnakeTouched()){
-      showGameOver(moving,gameOver)
+      showGameOver(gameOver)
     }
     repaintGame(game);
     animateSnakes(game)
-  },200);
-  const moving = setInterval(()=>game.turnGhostSnake(), 200);  
+  },100);
 };

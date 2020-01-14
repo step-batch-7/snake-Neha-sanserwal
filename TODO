@@ -24,6 +24,6 @@
            -resolved- bug occurred : snake grows only when horizontal. and turn itself when eat food vertically
 --Done-- * If snake touches itself or the walls, the game should be over.
           -resolved- if food is at boundary game is over.
-          -unresolved- console errors "Uncaught TypeError: Cannot read property 'classList' of null"
+          -resolved- console errors "Uncaught TypeError: Cannot read property 'classList' of null"
           -resolved- ghost snake if touches the wall game stops.
 --DONE-- * Add a scoring mechanism

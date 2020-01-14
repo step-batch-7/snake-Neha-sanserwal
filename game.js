@@ -51,8 +51,7 @@
 
   turnGhostSnake(){
     let x = Math.random() * 100;
-    console.log( this.isWallTouchedByGhost())
-    if (x > 80|| this.isWallTouchedByGhost()) {
+    if (x > 90|| this.isWallTouchedByGhost()) {
       this.ghostSnake.turnLeft();
     }
     

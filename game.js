@@ -36,11 +36,20 @@
     return H_WALLS.includes(headX)|| V_WALLS.includes(headY);
   }
 
+  moveSnakes(){
+    this.snake.move();
+    this.ghostSnake.move();
+  }
+
   isSnakeTouched(){
     return this.snake.hasTouchedBody();
   }
 
   turnGhostSnake(){
-    this.ghostSnake.turnLeft();
+    let x = Math.random() * 100;
+    if (x > 90) {
+      this.ghostSnake.turnLeft();
+    }
+    
   }
 }

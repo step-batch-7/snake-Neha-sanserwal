@@ -54,7 +54,7 @@ const drawFood = function(food){
 const drawSnake = function(snake) {
   snake.location.forEach(([colId, rowId]) => {
     const cell = getCell(colId, rowId);
-    cell.classList.add(snake.species);
+    cell && cell.classList.add(snake.species);
   });
 };
 
@@ -62,8 +62,7 @@ const handleKeyPress = snake => {
   snake.turnLeft();
 };
 
-const moveAndDrawSnake = function(snake) {
-  snake.move();
+const drawAndEraseSnake = function(snake) {
   eraseTail(snake);
   drawSnake(snake);
 };
@@ -88,16 +87,10 @@ const paint = function(assets) {
   drawSnake(assets.ghostSnake);
 }
 
-const animateSnakes = function(assets){
-  moveAndDrawSnake(assets.snake);
-  moveAndDrawSnake(assets.ghostSnake);
-}
-
-const randomlyMoveSnake = function(game){
-  let x = Math.random() * 100;
-  if (x > 60) {
-    game.turnGhostSnake();
-  }
+const animateSnakes = function(game){
+  game.moveSnakes();
+  drawAndEraseSnake(game.assets.snake);
+  drawAndEraseSnake(game.assets.ghostSnake);
 }
 
 const generatePosition = function(){
@@ -145,7 +138,7 @@ const main = function() {
       showGameOver(moving,gameOver)
     }
     repaintGame(game);
-    animateSnakes(game.assets);
+    animateSnakes(game)
   },200);
-  const moving = setInterval(randomlyMoveSnake, 200, game);  
+  const moving = setInterval(game.turnGhostSnake(), 200);  
 };

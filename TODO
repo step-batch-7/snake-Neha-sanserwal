@@ -25,5 +25,5 @@
 --Done-- * If snake touches itself or the walls, the game should be over.
           -resolved- if food is at boundary game is over.
           -unresolved- console errors "Uncaught TypeError: Cannot read property 'classList' of null"
-          -unresolved- ghost snake if touches the wall game stops.
+          -resolved- ghost snake if touches the wall game stops.
 --DONE-- * Add a scoring mechanism

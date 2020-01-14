@@ -106,6 +106,11 @@ const eraseFood = function(){
   const cell = document.getElementsByClassName('food')[0];
   cell.classList.remove('food');
 }
+const showGameOver = function(moving,gameOver){
+  clearInterval(moving);
+  clearInterval(gameOver);
+  document.getElementById('gameOver').style.display = 'flex';
+}
 
 const main = function() {
   const snake = createSnake();
@@ -119,8 +124,7 @@ const main = function() {
 
   const gameOver = setInterval(()=>{
     if(game.isWallTouched()|| game.isSnakeTouched()){
-      clearInterval(moving);
-      clearInterval(gameOver);
+      showGameOver(moving,gameOver)
     }
     repaintGame(game);
     animateSnakes(game.assets);

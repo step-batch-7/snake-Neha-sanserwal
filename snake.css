@@ -1,7 +1,26 @@
+body{
+  margin:0px;
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+}
 h1 {
+  margin: 0px;
   text-align: center;
 }
-
+#gameOver{
+  display: none;
+  position: absolute;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color: white;
+  font-size: 4rem;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.9);
+}
 #grid {
   width: 800px;
   display: flex;

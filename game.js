@@ -22,7 +22,7 @@
   growSnake(){
     this.snake.grow();
   }
-  
+    
   isWallTouched(){
     const[headX,headY] = this.snake.head;
     return H_WALLS.includes(headX)|| V_WALLS.includes(headY);

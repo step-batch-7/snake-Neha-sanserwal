@@ -25,10 +25,6 @@ class Snake {
   grow(){
     const[headX, headY]  = this.positions[this.positions.length - 1];
     const [deltaX, deltaY] = this.direction.delta;
-    if(this.type === 'ghost'){
-      this.positions.push([(headX + deltaX)%NUM_OF_COLS, (headY + deltaY)%NUM_OF_ROWS]);
-      return;
-    }
     this.positions.push([headX + deltaX, headY + deltaY]);
   }
 

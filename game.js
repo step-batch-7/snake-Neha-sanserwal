@@ -1,8 +1,9 @@
  class Game{
-  constructor(snake,ghostSnake,food){
+  constructor(snake,ghostSnake,food,score){
     this.snake = snake;
     this.ghostSnake = ghostSnake;
     this.food = food;
+    this.score = score;
   }
 
   get assets() {
@@ -11,7 +12,13 @@
     const food = this.food;
     return {snake,ghostSnake,food}
   }
+  get totalScore(){
+    return this.score.total;
+  }
 
+  updateScore(){
+    this.score.update(); 
+  }
   updateFood(position){
     const [colId, rowId] = position;
     this.food = new Food(colId, rowId);

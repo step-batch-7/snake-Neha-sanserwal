@@ -1,10 +1,19 @@
-
+class Score{
+  constructor(score){
+    this.score = score;
+  }
+  update(){
+    this.score = this.score+10;
+  }
+  get total(){
+    return this.score;
+  }
+}
 const NUM_OF_COLS = 100;
 const NUM_OF_ROWS = 60;
 const H_WALLS = [100,-1];
 const V_WALLS = [60,-1]
 const GRID_ID = 'grid';
-let SCORE = 0;
 
 const getGrid = () => document.getElementById(GRID_ID);
 const getCellId = (colId, rowId) => colId + '_' + rowId;
@@ -27,8 +36,8 @@ const createGrids = function() {
   }
 };
 
-const showScore = function(){
-  document.getElementById('score').innerText = SCORE;
+const showScore = function(score){
+  document.getElementById('count').innerText = score ;
 }
 
 const eraseTail = function(snake) {
@@ -70,7 +79,7 @@ const createSnake = function(){
 
 const createGhostSnake = function(){
   const cells =  [[40, 30],[41, 30],[42, 30]];
-  return new Snake(cells, new Direction(SOUTH),'ghost');
+  return new Snake(cells, new Direction(WEST),'ghost');
 }
 
 const paint = function(assets) {
@@ -86,7 +95,7 @@ const animateSnakes = function(assets){
 
 const randomlyMoveSnake = function(game){
   let x = Math.random() * 100;
-  if (x > 50) {
+  if (x > 60) {
     game.turnGhostSnake();
   }
 }
@@ -99,8 +108,8 @@ const generatePosition = function(){
 
 const repaintGame = function(game){
   if(game.isFoodEaten()){
-    SCORE = SCORE+10;
-    showScore();
+    game.updateScore();
+    showScore(game.totalScore);
     eraseFood();
     game.growSnake();
     const position = generatePosition();
@@ -124,10 +133,11 @@ const main = function() {
   const ghostSnake = createGhostSnake();
   const [foodX,foodY] = generatePosition();
   const food = new Food(foodX,foodY); 
-  showScore();
+  const score = new Score(0);
   createGrids();
   attachEventListeners(snake);
-  const game = new Game(snake,ghostSnake,food);
+  const game = new Game(snake,ghostSnake,food,score);
+  showScore(game.totalScore);
   paint(game.assets);
 
   const gameOver = setInterval(()=>{

@@ -133,7 +133,7 @@ const main = function() {
   showScore(game.totalScore);
   paint(game.assets);
   const gameOver = setInterval(()=>{
-    if(game.isWallTouched()|| game.isSnakeTouched()){
+    if(game.isOver()){
       showGameOver(gameOver, game.totalScore)
     }
     repaintGame(game);

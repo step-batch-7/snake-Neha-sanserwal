@@ -32,25 +32,21 @@
   isFoodEatenByGhost(){
     return this.ghostSnake.isHeadAt(this.food.positions);
   }
-
-  isWallTouched(){
-    const[headX,headY] = this.snake.head;
-    return H_WALLS.includes(headX)|| V_WALLS.includes(headY);
-  }
-
+  
   moveSnakes(){
     this.snake.move();
     this.ghostSnake.move();
   }
 
-  isSnakeTouched(){
-    return this.snake.hasTouchedBody();
-  }
   isWallTouchedByGhost(){
     const[headX,headY] = this.ghostSnake.head;
     return [99,0].includes(headX)|| [59,0].includes(headY);
   }
-
+  isOver(){
+    const[headX,headY] = this.snake.head;
+    const isWallTouched = H_WALLS.includes(headX)|| V_WALLS.includes(headY);
+    return isWallTouched || this.snake.hasTouchedBody();
+  }
   turnGhostSnake(){
     let x = Math.random() * 100;
     if (x > 90|| this.isWallTouchedByGhost()) {

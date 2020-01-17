@@ -116,7 +116,7 @@ const showGameOver = function(gameOver,score){
   container.style.display = 'flex';
 }
 
-const main = function() {
+const setup = function(){
   const snake = createSnake();
   const ghostSnake = createGhostSnake();
   const [foodX,foodY] = generatePosition();
@@ -124,15 +124,19 @@ const main = function() {
   const score = new Score(0);
   createGrids();
   attachEventListeners(snake);
-  const game = new Game(snake,ghostSnake,food,score);
+  return [snake,ghostSnake,food,score]
+}
+
+const main = function() {
+  const assets = setup();
+  const game = new Game(...assets);
   showScore(game.totalScore);
   paint(game.assets);
-
   const gameOver = setInterval(()=>{
     if(game.isWallTouched()|| game.isSnakeTouched()){
-      showGameOver(gameOver , game.totalScore)
+      showGameOver(gameOver, game.totalScore)
     }
     repaintGame(game);
-    animateSnakes(game)
+    animateSnakes(game);
   },100);
 };

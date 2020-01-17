@@ -29,3 +29,4 @@
 --DONE-- * Add a scoring mechanism
 
 --Done-- * Bug : Uncaught ReferenceError: moving is not defined
+--Done-- * Give ghost snake ability to eat food 

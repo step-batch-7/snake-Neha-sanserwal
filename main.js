@@ -91,11 +91,14 @@ const generatePosition = function(){
 
 const repaintGame = function(game){
   if(game.isFoodEaten()){
+    game.updateScore();
+  }
+  if(game.isFoodEatenByGhost()||game.isFoodEaten()){
     const newFoodPositions = generatePosition();
     game.update(newFoodPositions);
     eraseFood();
-    showScore(game.totalScore);
   }
+  showScore(game.totalScore);
   paint(game.assets);
 }
 

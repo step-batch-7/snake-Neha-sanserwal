@@ -20,11 +20,17 @@
     const [colId, rowId] = newFoodPosition;
     this.food = new Food(colId, rowId);
     this.snake.grow();
-    this.score.update(); 
+  }
+
+  updateScore(){
+    this.score.update();
   }
   
   isFoodEaten(){
    return this.snake.isHeadAt(this.food.positions);
+  }
+  isFoodEatenByGhost(){
+    return this.ghostSnake.isHeadAt(this.food.positions);
   }
 
   isWallTouched(){
